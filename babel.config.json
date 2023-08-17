@@ -1,21 +1,21 @@
 {
-  "sourceType": "unambiguous",
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "entry",
-        "corejs": 3,
-        "exclude": []
-      }
-    ]
-  ],
-  "plugins": [
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        "corejs": 3
-      }
-    ]
-  ]
+  // "sourceType": "unambiguous",
+  // "presets": [
+  //   [
+  //     "@babel/preset-env",
+  //     {
+  //       "useBuiltIns": "entry",
+  //       "corejs": 3,
+  //       "exclude": []
+  //     }
+  //   ]
+  // ],
+  // "plugins": [
+  //   [
+  //     "@babel/plugin-transform-runtime",
+  //     {
+  //       "corejs": 3
+  //     }
+  //   ]
+  // ]
 }

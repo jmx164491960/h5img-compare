@@ -17,7 +17,9 @@ module.exports = merge(baseConfig, {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dev'),
     clean: true,
-    libraryExport: 'default',
+  },
+  optimization: {
+    minimize: false,
   },
   module: {
     rules: [
@@ -82,8 +84,8 @@ module.exports = merge(baseConfig, {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/images'),
-          to: path.resolve(__dirname, 'dev/images')
+          from: path.resolve(__dirname, 'src/copy'),
+          to: path.resolve(__dirname, 'dev')
         }
       ]
     })
