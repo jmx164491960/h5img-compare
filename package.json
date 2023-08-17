@@ -8,6 +8,9 @@
     "dev": "npx webpack --watch --config webpack.config.dev.js"
   },
   "dependencies": {
+    "ant-design-vue": "1.7.8",
+    "debounce": "^1.2.1",
+    "lodash": "^4.17.21",
     "vant": "2.10.12",
     "vue": "2.5.2",
     "vue-draggable-resizable": "^2.3.0",
@@ -15,8 +18,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
     "@babel/plugin-transform-runtime": "^7.22.7",
-    "@babel/preset-env": "^7.22.7",
+    "@babel/preset-env": "7.22.7",
     "@babel/runtime": "^7.22.6",
     "@babel/runtime-corejs3": "^7.22.6",
     "babel-loader": "^8.3.0",
