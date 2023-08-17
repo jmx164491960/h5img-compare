@@ -1,23 +1,7 @@
-document.getElementById('imgUpload').addEventListener('change', (event) => {
-  const file = event.target.files[0]
-  if (file) {
-    console.log('file:', file)
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = function (e) {
-      const img = document.createElement('img')
-      img.src = e.target.result
-      console.log('img:', img)
-      img.style.width = '100px'
-      document.documentElement.appendChild(img)
-      // chrome.runtime.sendMessage({ greeting: "Hello from default_popup!" });
-
-      sendImg(e.target.result)
-    }
+import Vue from 'vue'
+import Popup from './views/Popup'
+new Vue({
+  render: h => h(Popup),
+  mounted () {
   }
-})
-
-const sendImg = async (imgSrc) => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  chrome.tabs.sendMessage(tab.id, {action:'click' , payload: imgSrc})
-}
+}).$mount('#app')

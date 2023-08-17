@@ -13,6 +13,7 @@ module.exports = merge(baseConfig, {
     'content': './src/script/content',
     'popup': './src/script/popup',
   },
+  watch: true,
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dev'),

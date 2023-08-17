@@ -3829,6 +3829,11 @@ vary@~1.1.2:
   resolved "https://npm-registry.yy.com/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
+vue-draggable-resizable@^2.3.0:
+  version "2.3.0"
+  resolved "https://npm-registry.yy.com/vue-draggable-resizable/download/vue-draggable-resizable-2.3.0.tgz#94c433ca748bc1a4d0959ba1c5c0e1c3536cee5b"
+  integrity sha1-lMQzynSLwaTQlZuhxcDhw1Ns7ls=
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://npm-registry.yy.com/vue-hot-reload-api/download/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"

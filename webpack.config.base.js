@@ -8,6 +8,11 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
     }
-  }
+  },
+  ignoreWarnings: [
+    {
+      module: /limit\/content\/popup\/index.js/
+    }
+  ]
 };
 
