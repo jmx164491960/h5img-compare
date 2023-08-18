@@ -10,8 +10,9 @@ const { merge } = require('webpack-merge')
 module.exports = merge(baseConfig, {
   mode: 'production',
   entry: {
-    'content': './src/script/content',
-    'popup': './src/script/popup',
+    'content': './src/script/content/content',
+    'popup': './src/script/popup/popup',
+    'background': './src/script/background/background'
   },
   watch: true,
   output: {
@@ -79,7 +80,7 @@ module.exports = merge(baseConfig, {
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       title: 'Popup',
-      template: 'src/popup.html',
+      template: 'src/template/popup.html',
       filename: 'popup.html',
       chunks: ['popup'],
       inject: 'body',

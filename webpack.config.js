@@ -77,7 +77,7 @@ module.exports = merge(baseConfig, {
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       title: 'Popup',
-      template: 'src/popup.html',
+      template: 'src/template/popup.html',
       filename: 'popup.html',
       chunks: ['popup'],
       inject: 'body',

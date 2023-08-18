@@ -1,8 +1,30 @@
-console.log('init content!', !!chrome.runtime.onMessage, !!chrome.extension)
-
+console.log('init content!', !!chrome.runtime.onMessage, !!chrome.extension, !!chrome.storage, !!chrome.tabs)
+console.log('chrome.storage:', chrome.storage)
 import Vue from 'vue'
-import Content from './views/Content'
+import Content from './view'
 import VueDraggableResizable from 'vue-draggable-resizable'
+import { getStorageByBg, setStorageByBg, getStorageNameById } from '../helper'
+
+const getCurTab = (function () {
+  let id = undefined
+  return async function () {
+    if (id) return id
+    return new Promise((resolve) => {
+      chrome.runtime.sendMessage({ action: "getCurrentTabId" }, function(response) {
+        id = response.tabId;
+        resolve(id)
+        console.log("当前选项卡的 ID:", id);
+      });
+    })
+  }
+})()
+getCurTab().then((id) => {
+  const key = getStorageNameById(id)
+  console.log('storage key:', key)
+  chrome.storage.session.get(key, (res) => {
+    console.log('storage', res)
+  })
+})
 
 class ContentController {
   $img = undefined
@@ -64,13 +86,22 @@ chrome.runtime.onMessage.addListener((request , sender , sendResponse) => {
   const { action, payload } = request;
   // console.log(request);
   // contentController.add(payload)
-  if (action === 'imgSrc') {
-    contentController.buildApp({imgSrc:payload})
-  } else if (action === 'zIndex') {
-    console.log('zIndex', payload)
-    this.$set('zIndex', payload)
-  } else if (action === 'opacity') {
-    this.$set('opacity', payload)
+
+  if (action === 'config') {
+
   }
-  // sendResponse("content got!")
+
+  // if (action === 'imgSrc') {
+  //   contentController.buildApp({imgSrc:payload})
+  // } else if (action === 'zIndex') {
+  //   console.log('zIndex', payload)
+  //   this.$set('zIndex', payload)
+  // } else if (action === 'opacity') {
+  //   this.$set('opacity', payload)
+  // }
+})
+
+setStorageByBg('test', '111').then(async () => {
+  const res = await getStorageByBg('test')
+  console.log('getStorageByBg:', res)
 })

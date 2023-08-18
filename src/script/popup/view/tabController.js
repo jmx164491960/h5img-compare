@@ -1,4 +1,4 @@
-const NAMESPACE = 'h5img-compare'
+import { getStorageNameById } from "../../helper";
 
 class TabController {
   data = null
@@ -18,14 +18,14 @@ class TabController {
   }
   async getStorage (key) {
     const {id} = await this.getCurTab()
-    const name = `${NAMESPACE}_${id}`
+    const name = getStorageNameById(id)
     return new Promise((resolve) => {
       chrome.storage.session.get(key, (res) => resolve(res[name]))
     })
   }
   async set (key, value) {
     const {id} = await this.getCurTab()
-    const name = `${NAMESPACE}_${id}`
+    const name = getStorageNameById(id)
     // if (!this.data) {
       const res = await this.getStorage(name) || {}
       this.data = res
@@ -35,7 +35,7 @@ class TabController {
   }
   async get (key) {
     const {id} = await this.getCurTab()
-    const name = `${NAMESPACE}_${id}`
+    const name = getStorageNameById(id)
     // if (!this.data) {
       const res = await this.getStorage(name) || {}
       console.log('get', res)
