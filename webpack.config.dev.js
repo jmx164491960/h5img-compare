@@ -42,6 +42,8 @@ module.exports = merge(baseConfig, {
       {
         test: /\.scss$/,
         use: [
+          MiniCssExtractPlugin.loader,
+          // 'vue-style-loader',
           {
             loader: 'css-loader'
           },
@@ -74,6 +76,7 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       title: 'Popup',
       template: 'src/popup.html',

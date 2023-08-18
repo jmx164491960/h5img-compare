@@ -7,6 +7,9 @@
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
   },
+  "permissions": [
+    "storage"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "images/icon-128.png"

@@ -64,8 +64,9 @@ chrome.runtime.onMessage.addListener((request , sender , sendResponse) => {
   const { action, payload } = request;
   // console.log(request);
   // contentController.add(payload)
-  if (action === 'imgSrc') contentController.buildApp({imgSrc:payload})
-  else if (action === 'zIndex') {
+  if (action === 'imgSrc') {
+    contentController.buildApp({imgSrc:payload})
+  } else if (action === 'zIndex') {
     console.log('zIndex', payload)
     this.$set('zIndex', payload)
   } else if (action === 'opacity') {
