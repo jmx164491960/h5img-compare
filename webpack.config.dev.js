@@ -13,7 +13,7 @@ module.exports = merge(baseConfig, {
   entry: {
     'content': './src/script/content/content',
     'popup': './src/script/popup/popup',
-    'background': './src/script/background/background'
+    // 'background': './src/script/background/background'
   },
   watch: true,
   output: {

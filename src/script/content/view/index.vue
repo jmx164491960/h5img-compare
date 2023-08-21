@@ -1,6 +1,6 @@
 <template>
   <div class="h5-differ-border" :style="borderStyle">
-    <vue-draggable-resizable :w="sizes.w" h="auto" :x="sizes.x" :y="sizes.y" @dragging="onDrag" @resizing="onResize">
+    <vue-draggable-resizable :w="sizes.w" :h="h" :x="sizes.x" :y="sizes.y" @dragging="onDrag" @resizing="onResize">
       <!-- <p>Hello! I'm a flexible component. You can drag me around and you can resize me.<br>
       X: {{ x }} / Y: {{ y }} - Width: {{ width }} / Height: {{ height }}</p> -->
       <img style="width: 100%;" :src="config.imgSrc" />
@@ -18,6 +18,7 @@ const saveSize = debounce((value) => {
 export default {
   data () {
     return {
+      h: Number((window.screen.height / 2).toFixed(2)),
       config: getConfigInitState(),
       sizes: getSizeInitState()
     }

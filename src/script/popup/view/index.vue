@@ -35,7 +35,7 @@
       <div><a-switch v-model="config.enable" /></div>
     </div> -->
     <div class="p-bottom">
-      <a-button type="primary" @click="createBtn">Create</a-button>
+      <a-button type="primary" @click="createBtn">Create or Update!</a-button>
     </div>
   </div>
 </template>
@@ -59,7 +59,8 @@ export default {
   data () {
     return {
       config: getConfigInitState(),
-      loading: false
+      loading: false,
+      btnDirty: false,
     }
   },
   watch: {
@@ -68,7 +69,7 @@ export default {
       updateSlider(async () => {
         if (chrome && chrome.tabs) {
           // sendToContent('config', that.config)
-          tabController.set('config', that.config)
+          // tabController.set('config', that.config)
         }
       })
     },
@@ -76,9 +77,9 @@ export default {
       const that = this
       updateSlider(async () => {
         if (chrome && chrome.tabs) {
-          let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+          // let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
           // sendToContent('config', that.config)
-          tabController.set('config', that.config)
+          // tabController.set('config', that.config)
         }
       })
     }
@@ -95,8 +96,6 @@ export default {
         // Get this url from response in real world.
         getBase64(info.file.originFileObj, imageUrl => {
           this.config.imgSrc = imageUrl;
-          // sendToContent('config', this.config)
-          tabController.set('config', this.config)
           this.loading = false;
         });
       }
@@ -105,10 +104,14 @@ export default {
       return true
     },
     async revertValue () {
-      const config = await tabController.get('config') || getConfigInitState()
+      const cache = await tabController.get('config')
+      const config = cache || getConfigInitState()
+      console.log('cache:', cache)
       this.config = config
     },
     createBtn () {
+      this.btnDirty = true
+      tabController.set('config', this.config)
       sendToContent('config', this.config)
     }
   }

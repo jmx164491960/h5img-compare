@@ -13,11 +13,21 @@ export const getConfigInitState = () => {
 }
 
 export const getSizeInitState = () => {
-  return {
+  const initState = {
     x: 0,
     y: 0,
     w: Number((window.screen.width / 2).toFixed(2)),
+    h: Number((window.screen.height / 2).toFixed(2))
   }
+  try {
+    const json = localStorage.getItem(`${NAMESPACE}_sizes`)
+    if (json) {
+      return JSON.parse(json)
+    }
+  } catch (e) {
+    return initState
+  }
+  return initState
 }
 
 export const getCurTab = async function () {

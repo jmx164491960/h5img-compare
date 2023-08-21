@@ -39,8 +39,12 @@ class ContentController {
    * 挂在使用Vue的根节点
    */
   buildApp (config) {
+    debugger
     this.config = config
     const that = this
+    if (!config.imgSrc) {
+      return
+    }
     if (this.$root) {
       that.$vm.config = config
       return

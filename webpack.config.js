@@ -11,14 +11,13 @@ const { merge } = require('webpack-merge')
 module.exports = merge(baseConfig, {
   mode: 'production',
   entry: {
-    'content': './src/script/content',
-    'popup': './src/script/popup',
+    'content': './src/script/content/content',
+    'popup': './src/script/popup/popup',
   },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    libraryExport: 'default',
   },
   optimization: {
     minimize: true,
