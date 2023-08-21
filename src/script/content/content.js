@@ -1,37 +1,36 @@
-console.log('init content!', !!chrome.runtime.onMessage, !!chrome.extension, !!chrome.storage, !!chrome.tabs)
-console.log('chrome.storage:', chrome.storage)
+// console.log('init content!', !!chrome.runtime.onMessage, !!chrome.extension, !!chrome.storage, !!chrome.tabs)
+// console.log('chrome.storage:', chrome.storage)
 import Vue from 'vue'
 import Content from './view'
 import VueDraggableResizable from 'vue-draggable-resizable'
-import { getStorageByBg, setStorageByBg, getStorageNameById } from '../helper'
+import { getStorageByBg, setStorageByBg, getStorageNameById, getConfigInitState } from '../helper'
 
-const getCurTab = (function () {
-  let id = undefined
-  return async function () {
-    if (id) return id
-    return new Promise((resolve) => {
-      chrome.runtime.sendMessage({ action: "getCurrentTabId" }, function(response) {
-        id = response.tabId;
-        resolve(id)
-        console.log("当前选项卡的 ID:", id);
-      });
-    })
-  }
-})()
-getCurTab().then((id) => {
-  const key = getStorageNameById(id)
-  console.log('storage key:', key)
-  chrome.storage.session.get(key, (res) => {
-    console.log('storage', res)
-  })
-})
+// const getCurTab = (function () {
+//   let id = undefined
+//   return async function () {
+//     if (id) return id
+//     return new Promise((resolve) => {
+//       chrome.runtime.sendMessage({ action: "getCurrentTabId" }, function(response) {
+//         id = response.tabId;
+//         resolve(id)
+//         console.log("当前选项卡的 ID:", id);
+//       });
+//     })
+//   }
+// })()
+// getCurTab().then((id) => {
+//   const key = getStorageNameById(id)
+//   console.log('storage key:', key)
+//   chrome.storage.session.get(key, (res) => {
+//     console.log('storage', res)
+//   })
+// })
 
 class ContentController {
   $img = undefined
   $root = undefined
   $vm = undefined
-  zIndex = 999
-  opacity = 0.8
+  config = getConfigInitState()
   constructor () {
 
   }
@@ -39,24 +38,27 @@ class ContentController {
   /**
    * 挂在使用Vue的根节点
    */
-  buildApp ({imgSrc}) {
-    if (this.$root) return
+  buildApp (config) {
+    this.config = config
     const that = this
+    if (this.$root) {
+      that.$vm.config = config
+      return
+    }
     const $root = document.createElement('div')
     this.$root = $root
-    $root.id = 'h5img-compare'
+    $root.id = 'h5-differ'
     document.documentElement.appendChild($root)
     Vue.component('vue-draggable-resizable', VueDraggableResizable)
     new Vue({
       render: h => h(Content),
-      mounted () {
+      mounted() {
         that.$vm = this.$children[0]
-        that.$vm.zIndex = that.zIndex
-        that.$vm.opacity = that.opacity
-        console.log('mount done', this.$children[0].start(imgSrc))
+        that.$vm.config = that.config
+        console.log('mount done', that.config, that.$vm.start(that.config))
         // this.start(imgSrc)
       }
-    }).$mount('#h5img-compare')
+    }).$mount('#h5-differ')
   }
 
   $set (key, value) {
@@ -87,8 +89,9 @@ chrome.runtime.onMessage.addListener((request , sender , sendResponse) => {
   // console.log(request);
   // contentController.add(payload)
 
+  console.log('h5-differ request:', request)
   if (action === 'config') {
-
+    contentController.buildApp(payload)
   }
 
   // if (action === 'imgSrc') {
@@ -101,7 +104,7 @@ chrome.runtime.onMessage.addListener((request , sender , sendResponse) => {
   // }
 })
 
-setStorageByBg('test', '111').then(async () => {
-  const res = await getStorageByBg('test')
-  console.log('getStorageByBg:', res)
-})
+// setStorageByBg('test', '111').then(async () => {
+//   const res = await getStorageByBg('test')
+//   console.log('getStorageByBg:', res)
+// })

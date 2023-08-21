@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const VueLoaderPlugin = require('vue-loader/lib/plugin-webpack5')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
@@ -75,6 +76,11 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        __PROD__: true
+      }
+    }),
     new HtmlWebpackPlugin({
       title: 'Popup',
       template: 'src/template/popup.html',

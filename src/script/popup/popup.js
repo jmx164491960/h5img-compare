@@ -11,6 +11,8 @@ Vue.use(Switch)
 Vue.use(Upload)
 Vue.use(Button)
 
+console.log('process.env:', process.env)
+
 new Vue({
   render: h => h(Popup),
   mounted () {

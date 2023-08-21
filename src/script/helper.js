@@ -1,4 +1,4 @@
-const NAMESPACE = 'h5img-compare'
+export const NAMESPACE = 'h5-differ'
 export const getStorageNameById = (id) => {
   return `${NAMESPACE}_${id}`
 }
@@ -16,7 +16,7 @@ export const getSizeInitState = () => {
   return {
     x: 0,
     y: 0,
-    w: '100px',
+    w: Number((window.screen.width / 2).toFixed(2)),
   }
 }
 
